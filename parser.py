@@ -48,7 +48,6 @@ designs={}
 css={}
 result=""
 variables={}
-extra_classes={}
 # Process Slides
 for sett in settings:
     # Document Name
@@ -133,10 +132,15 @@ with open("".join(inpfile.split(".")[:-1])+".html",mode="w",encoding="UTF-8") as
                 css[f".slide:nth-child({str(index+1)})"]=parse_css(attrs)
             # Add preset class to current slide
             elif line.startswith("<p>ps{") and line.endswith("}</p>"):
-                if index in extra_classes:
-                    extra_classes[index]+=[line[6:-5]]
-                else:
-                    extra_classes[index]=[line[6:-5]]
+                preset_name=line[6:-5]
+                line_breaks=result.split("\n")
+                line_breaks.reverse()
+                for index,line_break in enumerate(line_breaks):
+                    if "<div class=\"slide" in line_break:
+                        break
+                line_breaks[index]=line_breaks[index].replace("\"",f"\"{preset_name} ",1)
+                line_breaks.reverse()
+                result="\n".join(line_breaks)
             # Set slide title header
             elif line.startswith("<p>\\"):
                 line=line.replace("<p>\\","<slidetitle>").replace("</p>","</slidetitle>")
@@ -167,9 +171,6 @@ with open("".join(inpfile.split(".")[:-1])+".html",mode="w",encoding="UTF-8") as
     </body>
     <script src="/behaviour.js"></script>
 </html>"""
-    # Add extra classes to slides
-    # for slide,_class in extra_classes:
-    #     "".find("<div class=\"slide>\"")
     # Remove paragraph element around images
     result=result.replace("<p><img","<img").replace("\"></p>","\">")
     # Add support for links to slides

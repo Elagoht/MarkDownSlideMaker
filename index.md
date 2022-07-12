@@ -57,6 +57,8 @@ sd{bg:./assets/missing_texture.png,bgcol:#30a8,bgtile,bgmix,txtcol:(dsc)}
 
 ====
 
+ps{cover}
+
 sd{hcenter,txtcenter,bgcol:#223}
 
 Browser Name     | Minimum Version 
