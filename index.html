@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<!-- This document automatically generated with SlideMaker Developed By Elagoht. -->
+<!-- Visit Elagoht's GitHub page: https://github.com/Elagoht -->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/design.css">
+        <title>Passenger by Elagoht</title>
+    </head>
+    <style>
+        :root {
+            --asc:blue;
+            --dsc:pink;
+        }
+        .cover {
+            color:var(--asc) !important;
+            background-image:url("/assets/rough_card.jpg");
+        }
+        .slide:nth-child(2) {
+            background-size:unset;
+            color:var(--dsc) !important;
+            background-image:url("./assets/missing_texture.png");
+            background-color:#30a8;
+            background-blend-mode:overlay;
+        }
+        .slide:nth-child(3) {
+            background-color:#223;
+            justify-content:center;
+            text-align:center !important;
+        }
+    </style>
+    <body>
+        <header id="slide_info">Passenger by Elagoht</header>
+        <section>
+            <div class="slide">
+                <slidetitle> Slide Maker </slidetitle>
+                <p>TL;DR just show me <a href="#i">how to install.</a></p>
+            </div>
+            <div class="slide">
+                <h1>Table of Content</h1>
+                <ol>
+                <li><goto onclick="go_to(3);">What is Slide Maker</goto>?<ul>
+                <li>How It Works?</li>
+                </ul>
+                </li>
+                <li>Easy to Learn<ul>
+                <li>But How? <goto onclick="go_to(1);">Local File</goto>?</li>
+                </ul>
+                </li>
+                <li>It is Open Source!</li>
+                </ol>
+                <h1>That's Second Column!</h1>
+                <ol start="4">
+                <li>Installation</li>
+                <li>Usage</li>
+                <li>Planning Updates</li>
+                <li>FAQ</li>
+                <li>Screenshots</li>
+                </ol>
+            </div>
+            <div class="slide">
+                <table>
+                <thead>
+                <tr>
+                <th>Browser Name</th>
+                <th>Minimum Version</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                <td>Edge</td>
+                <td>88</td>
+                </tr>
+                <tr>
+                <td>Firefox</td>
+                <td>89</td>
+                </tr>
+                <tr>
+                <td>Firefox Android</td>
+                <td>95</td>
+                </tr>
+                <tr>
+                <td>Chrome</td>
+                <td>88</td>
+                </tr>
+                <tr>
+                <td>Chrome Android</td>
+                <td>96</td>
+                </tr>
+                <tr>
+                <td>Safari</td>
+                <td>15</td>
+                </tr>
+                <tr>
+                <td>Safari IOS</td>
+                <td>15.1</td>
+                </tr>
+                <tr>
+                <td>Opera</td>
+                <td>74</td>
+                </tr>
+                <tr>
+                <td>Opera Mobile</td>
+                <td>64</td>
+                </tr>
+                <tr>
+                <td>Android Browser</td>
+                <td>96</td>
+                </tr>
+                <tr>
+                <td>Samsung Internet</td>
+                <td>15</td>
+                </tr>
+                </tbody>
+                </table>
+            </div>
+            <div class="slide">
+                <h1>Example Image</h1>
+                <img alt="Export Screen" src="https://raw.githubusercontent.com/Elagoht/Passenger/main/passenger-windows.png" /></p>
+            </div>
+        </section>
+        <div id="transition-con">
+            <div id="transition"></div>
+        </div>
+        <footer>
+            <div>
+                <nav id="controls">
+                    <div id="first" onclick="slide_first()">&#8612;</div>
+                    <div id="previous" onclick="slide_prev()">&#8656;</div>
+                    <div>
+                        <input id="slide-number" type="number" value="1" min="1" required>
+                        <span id="slide-count"></span>
+                    </div>
+                    <div id="next" onclick="slide_next()">&#8658;</div>
+                    <div id="last" onclick="slide_last()">&#8614;</div>
+                </nav>
+            </div>
+        </footer>
+    </body>
+    <script src="/behaviour.js"></script>
+</html>
