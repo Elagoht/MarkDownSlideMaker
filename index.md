@@ -16,6 +16,7 @@ ds{
 Presets, define a name and set styles
 ps{
   cover{bg:/assets/rough_card.jpg,txtcol:(asc),hcenter}
+  title{bgcol:red}
 }
 Default design of slides
 dd{vcenter,hcenter,bg:/assets/brown_paper.jpg,bgcol:#300000}
@@ -26,7 +27,16 @@ vr{
 }
 Add here additional CSS
 css{
-
+  p {
+    background-color:red;
+  }
+}
+bjs{
+  const selami="abi"
+}
+fjs{
+  console.log(selami)
+  console.log(page_count)
 }
 ^^^^
 ps{cover}
@@ -58,6 +68,7 @@ sd{bg:./assets/missing_texture.png,bgcol:#30a8,bgtile,bgmix,txtcol:(dsc)}
 ====
 
 ps{cover}
+ps{title}
 
 sd{hcenter,txtcenter,bgcol:#223}
 

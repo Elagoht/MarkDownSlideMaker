@@ -15,15 +15,26 @@
             --dsc:pink;
         }
         .cover {
+            justify-content:center;
             background-image:url("/assets/rough_card.jpg");
             color:var(--asc) !important;
         }
+        .title {
+            background-color:red;
+        }
         .slide:nth-child(2) {
-            background-color:#223;
             text-align:center !important;
+            background-color:#223;
             justify-content:center;
         }
+        p {
+            background-color:red;
+        }
     </style>
+    <script id="begin_js">
+  const selami="abi"
+  const page_count=4
+    </script>
     <body>
         <header id="slide_info">Passenger by Elagoht</header>
         <section>
@@ -53,7 +64,7 @@
                 <li>Screenshots</li>
                 </ol>
             </div>
-            <div class="cover slide">
+            <div class="title cover slide">
                 <table>
                 <thead>
                 <tr>
@@ -133,4 +144,8 @@
         </footer>
     </body>
     <script src="/behaviour.js"></script>
+    <script id="final_js">
+  console.log(selami)
+  console.log(page_count)
+    </script>
 </html>

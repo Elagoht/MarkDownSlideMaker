@@ -40,7 +40,6 @@ parts=content.split("\n^^^^\n")
 settings=parts[0].split("\n")
 content=parts[1].split("\n====\n")
 # Default or empty variables
-print(settings)
 mode="normal"
 doc_title="Slide Show"
 presets={}
@@ -48,6 +47,9 @@ designs={}
 css={}
 result=""
 variables={}
+additional_css=""
+begin_js=""
+final_js=""
 # Process Slides
 for sett in settings:
     # Document Name
@@ -55,13 +57,16 @@ for sett in settings:
     # Design
     elif mode=="normal":
         # Change modes
-        if   sett.strip()[:3]=="ds{": mode="design"
-        elif sett.strip()[:3]=="vr{": mode="variables"
-        elif sett.strip()[:3]=="ps{": mode="presets"
+        if   sett.strip()[:3]=="ds{" : mode="design"
+        elif sett.strip()[:3]=="vr{" : mode="variables"
+        elif sett.strip()[:3]=="ps{" : mode="presets"
+        elif sett.strip()[:4]=="css{": mode="css"
+        elif sett.strip()[:4]=="bjs{": mode="begin_js"
+        elif sett.strip()[:4]=="fjs{": mode="final_js"
     # Preset mode
     elif mode=="design":
         # Title
-        if   sett.strip()[:4]=="ttl{": designs[".title"]=sett[4:-1]
+        if   sett.strip()[:4]=="ttl{": designs["slidetitle"]=sett[4:-1]
         # Table
         elif sett.strip()[:4]=="tbl{": designs["table"]=sett[4:-1]
         # Image
@@ -86,7 +91,22 @@ for sett in settings:
             mode="normal"
         else:
             namestyles=sett.strip().split("{")
-            presets[namestyles[0]]=namestyles[1]
+            presets[namestyles[0]]=namestyles[1][:-1]
+    elif mode=="css":
+        if sett=="}":
+            mode="normal"
+        else:
+            additional_css+=("        " if sett.startswith("    ") else "      " if sett.startswith("    ") else "      ")+sett+"\n"
+    elif mode=="begin_js":
+        if sett=="}":
+            mode="normal"
+        else:
+            begin_js+=sett+"\n"
+    elif mode=="final_js":
+        if sett=="}":
+            mode="normal"
+        else:
+            final_js+=sett+"\n"
     else:
         print(sett)
 # Parse variables
@@ -113,6 +133,8 @@ with open("".join(inpfile.split(".")[:-1])+".html",mode="w",encoding="UTF-8") as
     </head>
     <style>
 {__css}    </style>
+    <script id="begin_js">
+{__bjs}    </script>
     <body>
         <header id="slide_info">{__title}</header>
         <section>
@@ -131,12 +153,12 @@ with open("".join(inpfile.split(".")[:-1])+".html",mode="w",encoding="UTF-8") as
                 # Create a css style for that slide
                 css[f".slide:nth-child({str(index+1)})"]=parse_css(attrs)
             # Add preset class to current slide
-            elif line.startswith("<p>ps{") and line.endswith("}</p>"):
-                preset_name=line[6:-5]
+            elif line.startswith("<p>ps{") or line.startswith("ps{"):
+                preset_name=line.split("{")[1].split("}")[0]
                 line_breaks=result.split("\n")
                 line_breaks.reverse()
                 for index,line_break in enumerate(line_breaks):
-                    if "<div class=\"slide" in line_break:
+                    if "<div class=\"" in line_break and "slide\">" in line_break:
                         break
                 line_breaks[index]=line_breaks[index].replace("\"",f"\"{preset_name} ",1)
                 line_breaks.reverse()
@@ -149,6 +171,8 @@ with open("".join(inpfile.split(".")[:-1])+".html",mode="w",encoding="UTF-8") as
             else:
                 result+=f"                {line}\n"
         result+="            </div>\n"
+    # Define some JavaScript variables
+    begin_js+=f"  const page_count={index+1}\n"
     # Add bottom of HTML
     result+="""        </section>
         <div id="transition-con">
@@ -170,13 +194,18 @@ with open("".join(inpfile.split(".")[:-1])+".html",mode="w",encoding="UTF-8") as
         </footer>
     </body>
     <script src="/behaviour.js"></script>
+    <script id="final_js">
+{__fjs}    </script>
 </html>"""
     # Remove paragraph element around images
     result=result.replace("<p><img","<img").replace("\"></p>","\">")
     # Add support for links to slides
     result=result.replace("[++]","</goto>")
     result=result.replace("[+","<goto onclick=\"go_to(").replace("+]",");\">")
+    # Add additional CSS defined by user
+    css="".join("        "+key+" {\n"+style+"        }\n" for key,style in zip(css.keys(),css.values()))
+    css+=additional_css
     # Add created css to html and write document name
-    result=result.format(__title=doc_title,__css="".join("        "+key+" {\n"+style+"        }\n" for key,style in zip(css.keys(),css.values())))
+    result=result.format(__title=doc_title,__css=css,__bjs=begin_js,__fjs=final_js)
     # Write content to output file
     res_file.write(result)

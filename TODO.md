@@ -4,6 +4,10 @@
 - [X] add variables as ":root".
 - [ ] add presets (use set to be sure there is no duplicate).
 - [ ] add design styles.
+- [X] add additional CSS.
+- [X] add additional begin JS.
+- [X] add additional final JS.
+- [X] add slide title tag with "\".
 - [X] don't show warning again button.
 - [X] close warning shortcut.
 - [X] text color.

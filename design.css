@@ -184,6 +184,7 @@ a {
 }
 img {
   display:block;
+  max-height:90vh;
 }
 blockquote {
   color:orange;
