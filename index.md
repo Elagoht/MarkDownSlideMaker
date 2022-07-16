@@ -2,16 +2,21 @@ Document name
 dn{Passenger by Elagoht}
 Design of the basic elements
 ds{
-  ttl{hcenter,vcenter,txtcenter,txtcol:gold,bgmix,bgcol:#300}
-  hd1{col:vr(asc)}
-  hd2{col:red}
-  hd3{col:red}
-  hd4{col:red}
-  hd5{col:red}
-  hd6{col:red}
-  tbl{hcenter,center,txtcol:red,headcol:#A8C,firstcol:#624}
+  all{txtshadow:white}
+  ttl{hcenter,vcenter,txtcenter,txtcol:gold,shadow:black}
+  hd1{txtcol:vr(asc),rotate:-10}
+  hd2{txtcol:red}
+  hd3{txtcol:red}
+  hd4{txtcol:red}
+  hd5{txtcol:red}
+  hd6{txtcol:red}
+  tbl{hcenter,center,txtcol:red,headcol:#A8C,bgmix,bgcol:#500}
+  thd{bgcol:#300}
+  tfc{bgcol:#400}
+  tor{bgcol:#1111}
+  ter{bgcol:#eee1}
   img{hcenter,vcenter,txtcenter,fleft}
-  prg{txtjstf}
+  prg{txtjstf,rotate:-2}
 }
 Presets, define a name and set styles
 ps{

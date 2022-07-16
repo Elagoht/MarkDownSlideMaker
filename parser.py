@@ -1,7 +1,5 @@
 #!/bin/env python3
 
-# TODO make presets
-
 # Import required modules
 from sys import argv
 from markdown import markdown as md
@@ -26,14 +24,18 @@ def parse_css(attrs):
     # Parse CSS
     for attr in attrs:
         attr=attr.strip()
-        if   attr=="hcenter"            : styles+="            justify-content:center;\n"
-        elif attr=="vcenter"            : styles+="            align-items:center;\n"
-        elif attr=="txtcenter"          : styles+="            text-align:center !important;\n"
-        elif attr=="bgtile"             : styles+="            background-size:unset;\n"
-        elif attr=="bgmix"              : styles+="            background-blend-mode:overlay;\n"
-        elif attr.startswith("txtcol:") : styles+="            color:"+parse_var(attr)+" !important;\n"
-        elif attr.startswith("bgcol:")  : styles+="            background-color:"+parse_var(attr)+";\n"
-        elif attr.startswith("bg:")     : styles+="            background-image:url(\""+parse_var(attr)+"\");\n"
+        if   attr=="hcenter"               : styles+="            justify-content:center;\n"
+        elif attr=="vcenter"               : styles+="            align-items:center;\n"
+        elif attr=="txtcenter"             : styles+="            text-align:center !important;\n"
+        elif attr=="bgtile"                : styles+="            background-size:unset;\n"
+        elif attr=="bgmix"                 : styles+="            background-blend-mode:overlay;\n"
+        elif attr.startswith("txtcol:")    : styles+="            color:"+parse_var(attr)+" !important;\n"
+        elif attr.startswith("bgcol:")     : styles+="            background-color:"+parse_var(attr)+";\n"
+        elif attr.startswith("bg:")        : styles+="            background-image:url(\""+parse_var(attr)+"\");\n"
+        elif attr.startswith("rotate:")    : styles+="            transform:rotate("+parse_var(attr)+"deg);\n"
+        elif attr.startswith("shadow:")    : styles+="            filter: drop-shadow(0 0 0.5vh "+parse_var(attr)+");\n"
+        elif attr.startswith("txtshadow:") : styles+="            text-shadow:0 0 0.5vh "+parse_var(attr)+";\n"
+    print(styles,attrs)
     return styles
 # Split into parts to determine jobs
 parts=content.split("\n^^^^\n")
@@ -43,7 +45,6 @@ content=parts[1].split("\n====\n")
 mode="normal"
 doc_title="Slide Show"
 presets={}
-designs={}
 css={}
 result=""
 variables={}
@@ -63,16 +64,38 @@ for sett in settings:
         elif sett.strip()[:4]=="css{": mode="css"
         elif sett.strip()[:4]=="bjs{": mode="begin_js"
         elif sett.strip()[:4]=="fjs{": mode="final_js"
-    # Preset mode
+    # Design mode, predefined tags
     elif mode=="design":
+        # All Elements
+        if   sett.strip()[:4]=="all{": css[".slide *"]            = parse_css(sett.split("{")[1].split("}")[0].split(","))
         # Title
-        if   sett.strip()[:4]=="ttl{": designs["slidetitle"]=sett[4:-1]
+        if   sett.strip()[:4]=="ttl{": css["slidetitle"]          = parse_css(sett.split("{")[1].split("}")[0].split(","))
         # Table
-        elif sett.strip()[:4]=="tbl{": designs["table"]=sett[4:-1]
+        elif sett.strip()[:4]=="tbl{": css["table"]               = parse_css(sett.split("{")[1].split("}")[0].split(","))
         # Image
-        elif sett.strip()[:4]=="img{": designs["img"]=sett[4:-1]
+        elif sett.strip()[:4]=="img{": css["img"]                 = parse_css(sett.split("{")[1].split("}")[0].split(","))
         # Paragraph
-        elif sett.strip()[:4]=="prg{": designs["p"]=sett[4:-1]
+        elif sett.strip()[:4]=="prg{": css["p"]                   = parse_css(sett.split("{")[1].split("}")[0].split(","))
+        # Header 1
+        elif sett.strip()[:4]=="hd1{": css["h1"]                  = parse_css(sett.split("{")[1].split("}")[0].split(","))
+        # Header 2
+        elif sett.strip()[:4]=="hd2{": css["h2"]                  = parse_css(sett.split("{")[1].split("}")[0].split(","))
+        # Header 3
+        elif sett.strip()[:4]=="hd3{": css["h3"]                  = parse_css(sett.split("{")[1].split("}")[0].split(","))
+        # Header 4
+        elif sett.strip()[:4]=="hd4{": css["h4"]                  = parse_css(sett.split("{")[1].split("}")[0].split(","))
+        # Header 5
+        elif sett.strip()[:4]=="hd5{": css["h5"]                  = parse_css(sett.split("{")[1].split("}")[0].split(","))
+        # Header 6
+        elif sett.strip()[:4]=="hd6{": css["h6"]                  = parse_css(sett.split("{")[1].split("}")[0].split(","))
+        # Table Header
+        elif sett.strip()[:4]=="thd{": css["th"]                  = parse_css(sett.split("{")[1].split("}")[0].split(","))
+        # Table First Column
+        elif sett.strip()[:4]=="tfc{": css["tr > td:first-child"] = parse_css(sett.split("{")[1].split("}")[0].split(","))
+        # Table Odd Row
+        elif sett.strip()[:4]=="tor{": css["tr:nth-child(odd)"]   = parse_css(sett.split("{")[1].split("}")[0].split(","))
+        # Table Even Row
+        elif sett.strip()[:4]=="ter{": css["tr:nth-child(even)"]  = parse_css(sett.split("{")[1].split("}")[0].split(","))
         # Turn back to normal mode
         elif sett=="}": mode="normal"
     # Variables mode

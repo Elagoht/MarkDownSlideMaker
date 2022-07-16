@@ -2,8 +2,8 @@
 
 - [X] collect style tags in one place.
 - [X] add variables as ":root".
-- [ ] add presets (use set to be sure there is no duplicate).
-- [ ] add design styles.
+- [X] add presets (use set to be sure there is no duplicate).
+- [X] add design styles.
 - [X] add additional CSS.
 - [X] add additional begin JS.
 - [X] add additional final JS.
@@ -12,12 +12,12 @@
 - [X] close warning shortcut.
 - [X] text color.
 - [X] default design.
-- [ ] add download slide option.
 - [X] add go to nth slide option.
 - [X] add a markdown shortcut to go specified slide.
 - [X] add transition.
+- [X] comments on settings
 - [ ] row layout.
 - [ ] seperate title.
 - [ ] graphical user interface.
 - [ ] automatic table of content generator.
-- [X] comments on settings
+- [ ] add download slide option.

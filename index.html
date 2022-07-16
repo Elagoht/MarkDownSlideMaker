@@ -10,22 +10,77 @@
         <title>Passenger by Elagoht</title>
     </head>
     <style>
+        .slide * {
+            text-shadow:0 0 0.5vh white;
+        }
+        slidetitle {
+            justify-content:center;
+            align-items:center;
+            text-align:center !important;
+            color:gold !important;
+            filter: drop-shadow(0 0 0.5vh black);
+        }
+        h1 {
+            color:vr(asc) !important;
+            transform:rotate(-10deg);
+        }
+        h2 {
+            color:red !important;
+        }
+        h3 {
+            color:red !important;
+        }
+        h4 {
+            color:red !important;
+        }
+        h5 {
+            color:red !important;
+        }
+        h6 {
+            color:red !important;
+        }
+        table {
+            justify-content:center;
+            color:red !important;
+            background-blend-mode:overlay;
+            background-color:#500;
+        }
+        th {
+            background-color:#300;
+        }
+        tr > td:first-child {
+            background-color:#400;
+        }
+        tr:nth-child(odd) {
+            background-color:#1111;
+        }
+        tr:nth-child(even) {
+            background-color:#eee1;
+        }
+        img {
+            justify-content:center;
+            align-items:center;
+            text-align:center !important;
+        }
+        p {
+            transform:rotate(-2deg);
+        }
         :root {
             --asc:blue;
             --dsc:pink;
         }
         .cover {
-            justify-content:center;
             background-image:url("/assets/rough_card.jpg");
+            justify-content:center;
             color:var(--asc) !important;
         }
         .title {
             background-color:red;
         }
         .slide:nth-child(2) {
-            text-align:center !important;
             background-color:#223;
             justify-content:center;
+            text-align:center !important;
         }
         p {
             background-color:red;
